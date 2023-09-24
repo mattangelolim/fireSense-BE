@@ -1,8 +1,9 @@
 // config/database.js
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
-const sequelize = new Sequelize("firesense", "admin", "9%D29!F!A4Ui", {
-  host: "bingorepublic-rds.cpgb7oxrrgkv.ap-southeast-1.rds.amazonaws.com",
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
   dialect: "mysql",
 });
 
