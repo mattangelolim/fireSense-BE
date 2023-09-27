@@ -7,6 +7,8 @@ const userActivationRoute = require("./routes/userActivationRoutes");
 const userLoginRoute = require("./routes/userLoginRoutes");
 const casesRoute = require("./routes/casesRoutes");
 
+const adminAdvisoryRoute = require("./routes/adminAdvisoryRoutes");
+
 // const User = require("./models/Users");
 const port = process.env.PORT;
 
@@ -19,6 +21,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use("/user", userRegistrationRoute);
 app.use("/user", userActivationRoute);
 app.use("/user", userLoginRoute);
+app.use("/admin", adminAdvisoryRoute);
 
 app.use("/all", casesRoute);
 

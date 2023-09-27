@@ -28,6 +28,10 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     defaultValue: "notActive", // Set the default value
   },
+  user_type: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = User;
