@@ -15,6 +15,10 @@ const Advisory = sequelize.define("Advisory", {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  district: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = Advisory;

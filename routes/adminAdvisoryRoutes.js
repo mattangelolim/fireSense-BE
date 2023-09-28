@@ -4,10 +4,14 @@ const Advisory = require("../models/Advisory");
 
 // Route to create a new advisory
 router.post("/advisory", async (req, res) => {
-  const { announcement, expirationDate } = req.body;
+  const { announcement, expirationDate, district } = req.body;
 
   try {
-    const newAdvisory = await Advisory.create({ announcement, expirationDate });
+    const newAdvisory = await Advisory.create({
+      announcement,
+      expirationDate,
+      district,
+    });
     res.status(201).json({ advisory: newAdvisory });
   } catch (error) {
     console.error("Error creating advisory:", error);
