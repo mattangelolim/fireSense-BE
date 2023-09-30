@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/Users");
+const { User } = require("../models/Users");
 const Otp = require("../models/Otp");
 const twilio = require("twilio");
 
 const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
-const authToken = "2dd9f602dfcaefe461e790e50b5c08f9";
+const authToken = "5acaade223b7348bc0cdda008d0c61ae";
 const client = twilio(accountSid, authToken);
 
 const OTPMap = {};
@@ -49,8 +49,12 @@ router.post("/register", (req, res) => {
         });
     })
     .catch((error) => {
-      console.error("Error creating user:", error);
-      res.status(500).json({ error: "Error creating user" });
+      if (error.original && error.original.code === "ER_DUP_ENTRY") {
+        res.status(400).json({ error: "Email already registered" });
+      } else {
+        console.error("Error creating user:", error);
+        res.status(500).json({ error: "Error creating user" });
+      }
     });
 });
 
