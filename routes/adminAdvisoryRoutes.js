@@ -2,7 +2,7 @@ const Advisory = require("../models/Advisory");
 const { Op, User } = require("../models/Users");
 const router = require("express").Router();
 const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
-const authToken = "0be97f72288ca323a660799645b7b9bd";
+const authToken = "cc157b298afc59eb589cd89a4458f22f";
 const client = require("twilio")(accountSid, authToken);
 
 // Route to create a new advisory
