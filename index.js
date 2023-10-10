@@ -6,11 +6,15 @@ const userRegistrationRoute = require("./routes/userRegisterRoutes");
 const userActivationRoute = require("./routes/userActivationRoutes");
 const userLoginRoute = require("./routes/userLoginRoutes");
 const casesRoute = require("./routes/casesRoutes");
+const commentRoute = require("./routes/commentRoutes");
+const liveRoute = require("./routes/liveRegistrationRoutes");
+const liveUpdate = require("./routes/liveUpdateRoutes");
 
 const adminAdvisoryRoute = require("./routes/adminAdvisoryRoutes");
 const getAnnouncementRoute = require("./routes/getRouters/getAnnouncements");
-
-// const User = require("./models/Users");
+const getLiveRoute = require("./routes/getRouters/getLives");
+const getComments = require("./routes/getComments");
+const deleteLive = require("./routes/deleteLive");
 const port = process.env.PORT;
 
 const app = express();
@@ -24,6 +28,14 @@ app.use("/user", userActivationRoute);
 app.use("/user", userLoginRoute);
 app.use("/admin", adminAdvisoryRoute);
 app.use("/api", getAnnouncementRoute);
+app.use("/api", getLiveRoute);
+app.use("/api", deleteLive);
+app.use("/api", commentRoute);
+app.use("/api", liveRoute);
+
+app.use("/api", liveUpdate);
+
+app.use("/api", getComments);
 
 app.use("/all", casesRoute);
 

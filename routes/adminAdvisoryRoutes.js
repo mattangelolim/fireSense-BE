@@ -2,7 +2,7 @@ const Advisory = require("../models/Advisory");
 const { Op, User } = require("../models/Users");
 const router = require("express").Router();
 const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
-const authToken = "5acaade223b7348bc0cdda008d0c61ae";
+const authToken = "0be97f72288ca323a660799645b7b9bd";
 const client = require("twilio")(accountSid, authToken);
 
 // Route to create a new advisory
@@ -30,7 +30,7 @@ router.post("/advisory", async (req, res) => {
     phone.forEach((phone) => {
       client.messages
         .create({
-          body: `There's a new advisory posted in firesense website!!`,
+          body: `A new announcement has posted "${announcement}"`,
           from: "+17855092002",
           to: phone,
         })
