@@ -4,19 +4,30 @@ const router = require("express").Router();
 const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
 const authToken = "cc157b298afc59eb589cd89a4458f22f";
 const client = require("twilio")(accountSid, authToken);
+const moment = require('moment-timezone');
 
 // Route to create a new advisory
 router.post("/advisory", async (req, res) => {
-  const { announcement, expirationDate, district } = req.body;
+  const { announcement, expirationHours, expirationMinutes, expirationSeconds, district } = req.body;
 
   try {
+    const CurrentDate = moment().tz('Asia/Manila').add(8, 'hours').format('YYYY-MM-DD HH:mm:ss');
+
+    const expirationDate = moment(CurrentDate)
+      .add(expirationHours, 'hours')
+      .add(expirationMinutes, 'minutes')
+      .add(expirationSeconds, 'seconds')
+      .format('YYYY-MM-DD HH:mm:ss');
+
+      console.log(expirationDate)
+
     const newAdvisory = await Advisory.create({
       announcement,
       expirationDate,
       district,
     });
 
-    // Assuming each user has a registered phone number in the database
+    // FIND USERS THAT REGISTERED IN THE SYSTEM EXCEPT ADMIN
     const users = await User.findAll({
       where: {
         phone: { [Op.not]: null },
@@ -30,7 +41,7 @@ router.post("/advisory", async (req, res) => {
     phone.forEach((phone) => {
       client.messages
         .create({
-          body: `A new announcement has posted "${announcement}"`,
+          body: `A new announcement has posted "${announcement}" `,
           from: "+17855092002",
           to: phone,
         })

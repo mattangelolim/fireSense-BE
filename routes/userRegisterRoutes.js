@@ -4,8 +4,8 @@ const { User } = require("../models/Users");
 const Otp = require("../models/Otp");
 const twilio = require("twilio");
 
-const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
-const authToken = "cc157b298afc59eb589cd89a4458f22f";
+const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
+const authToken = "b27b3afa388f43154d37d931cdfd20c5";
 const client = twilio(accountSid, authToken);
 
 const OTPMap = {};
@@ -22,13 +22,13 @@ router.post("/register", (req, res) => {
     user_type,
   })
     .then((user) => {
-      // Now that the user is created, generate and send OTP
+      // generate and send OTP
       const otp = generateOTP();
 
       client.messages
         .create({
           body: `Your OTP for registration: ${otp}`,
-          from: "+17855092002", // Twilio phone number
+          from: "+12295261907", // Twilio phone number
           to: `+${phone}`, // User's phone number
         })
         .then((message) => {
