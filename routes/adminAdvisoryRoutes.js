@@ -2,7 +2,7 @@ const Advisory = require("../models/Advisory");
 const { Op, User } = require("../models/Users");
 const router = require("express").Router();
 const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
-const authToken = "cc157b298afc59eb589cd89a4458f22f";
+const authToken = "13741706abd8887c13a7a155d7a3e1fd";
 const client = require("twilio")(accountSid, authToken);
 const moment = require('moment-timezone');
 
