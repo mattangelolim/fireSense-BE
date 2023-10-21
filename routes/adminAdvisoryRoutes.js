@@ -1,7 +1,7 @@
 const Advisory = require("../models/Advisory");
 const { Op, User } = require("../models/Users");
 const router = require("express").Router();
-const accountSid = "ACca39c5090e29044ba0e50afca61bc769";
+const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
 const authToken = "13741706abd8887c13a7a155d7a3e1fd";
 const client = require("twilio")(accountSid, authToken);
 const moment = require('moment-timezone');
@@ -42,7 +42,7 @@ router.post("/advisory", async (req, res) => {
       client.messages
         .create({
           body: `A new announcement has posted "${announcement}" `,
-          from: "+17855092002",
+          from: "+12295261907",
           to: phone,
         })
         .then((message) => console.log(`SMS sent to ${phone}: ${message.sid}`))
