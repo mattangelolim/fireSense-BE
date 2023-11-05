@@ -11,7 +11,7 @@ router.post("/advisory", async (req, res) => {
   const { announcement, expirationHours, expirationMinutes, expirationSeconds, district } = req.body;
 
   try {
-    const CurrentDate = moment().tz('Asia/Manila').add(8, 'hours').format('YYYY-MM-DD HH:mm:ss');
+    const CurrentDate = moment().tz('Asia/Manila').format('YYYY-MM-DD HH:mm:ss');
 
     const expirationDate = moment(CurrentDate)
       .add(expirationHours, 'hours')
