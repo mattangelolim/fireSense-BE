@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Case = require("../models/Case");
-const ARIMA = require("arima");
 
 // Route to get all cases sorted by district in descending order
 router.get("/fire/cases", async (req, res) => {

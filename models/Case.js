@@ -1,28 +1,34 @@
 // models/Case.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const Case = sequelize.define('Case', {
+const Case = sequelize.define("CASES", {
   year: {
     type: DataTypes.STRING,
-    allowNull: false
-  },
-  district: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  count: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
   },
   month: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   time: {
     type: DataTypes.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
+  district: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  area: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  count: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });
+
+// Case.sync()
 
 module.exports = Case;

@@ -31,6 +31,7 @@ router.post("/advisory", async (req, res) => {
     const users = await User.findAll({
       where: {
         phone: { [Op.not]: null },
+        district: district,
         user_type: { [Op.not]: "admin" },
       },
     });

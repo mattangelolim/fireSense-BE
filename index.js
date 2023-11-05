@@ -16,6 +16,7 @@ const getLiveRoute = require("./routes/getRouters/getLives");
 const getComments = require("./routes/getComments");
 const deleteLive = require("./routes/deleteLive");
 const deleteAdvisory = require("./routes/advisoryDeleteRoutes");
+const movingAverage = require("./routes/movingAverageRoutes")
 const port = process.env.PORT;
 
 const app = express();
@@ -38,6 +39,7 @@ app.use("/api", liveUpdate);
 
 app.use("/api", getComments);
 app.use("/api", deleteAdvisory);
+app.use("/api", movingAverage);
 
 app.use("/all", casesRoute);
 
