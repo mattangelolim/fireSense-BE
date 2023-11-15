@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize");
 const Case = require("../models/Case");
+const ARIMA = require('arima');
 
 router.get("/moving-average", async (req, res) => {
   const year = req.query.year;
   const district = req.query.district;
-//   the "window size" refers to the number of data points used to calculate the average at each step.
+  //   the "window size" refers to the number of data points used to calculate the average at each step.
   const windowSize = 3
 
   try {
@@ -50,13 +51,13 @@ router.get("/moving-average", async (req, res) => {
   }
 });
 
-router.get("/moving-average/prediction", async (req,res) =>{
+router.get("/moving-average/prediction", async (req, res) => {
   try {
-    const casesPerYear = await Case.findAll()
+    const casesPerYear = await Case.findAll();
     const totalCountsPerYear = {};
 
     // Loop through cases and increment total counts
-    casesPerYear.forEach((caseData) => {
+    casesPerYear.forEach((caseData, index) => {
       const year = caseData.year;
       const count = caseData.count;
 
@@ -67,36 +68,29 @@ router.get("/moving-average/prediction", async (req,res) =>{
       totalCountsPerYear[year].count += count;
     });
 
-    const linearRegression = (x, y, predictX) => {
-      // Calculate the mean of arrays x and y
-      const meanX = x.reduce((acc, val) => acc + val, 0) / x.length;
-      const meanY = y.reduce((acc, val) => acc + val, 0) / y.length;
-    
-      // Calculate the coefficients a and b of the linear regression equation (y = a * x + b)
-      const numerator = x.reduce((acc, val, i) => acc + (val - meanX) * (y[i] - meanY), 0);
-      const denominator = x.reduce((acc, val) => acc + Math.pow(val - meanX, 2), 0);
-      const a = numerator / denominator;
-      const b = meanY - a * meanX;
-    
-      // Predict the value for predictX
-      const predictY = a * predictX + b;
-    
-      return predictY;
-    };
-    
-    
-    // Extract years and counts from the data
-    const years = Object.keys(totalCountsPerYear).map(Number);
-    const counts = Object.values(totalCountsPerYear).map((entry) => entry.count);
-    
-    // Predict the value for 2024
-    const predictedValue = linearRegression(years, counts, 2024);
+    const countsOnly = Object.values(totalCountsPerYear).map(({ count }) => ({ count }));
 
-    res.json(predictedValue)
+    const data = countsOnly.map(({ count }) => count);
+
+    const arima = new ARIMA({
+      p: 2,
+      d: 1,
+      q: 2,
+      verbose: false
+    }).train(data);
     
+    // Predict next value
+    const [pred, errors] = arima.predict(3);
+    
+    console.log("ARIMA forecast:", pred);
+
+
+    res.json(countsOnly)
+
   } catch (error) {
-    console.error(error)
-    res.status(500).json({message: error.message})
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
 })
+
 module.exports = router;
