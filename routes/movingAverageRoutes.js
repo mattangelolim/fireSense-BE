@@ -73,7 +73,7 @@ router.get("/moving-average/prediction", async (req, res) => {
     const data = countsOnly.map(({ count }) => count);
 
     const arima = new ARIMA({
-      p: 2,
+      p: 7,
       d: 1,
       q: 2,
       verbose: false
