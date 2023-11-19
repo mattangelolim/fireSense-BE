@@ -19,6 +19,10 @@ const Advisory = sequelize.define("Advisory", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  alert: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = Advisory;

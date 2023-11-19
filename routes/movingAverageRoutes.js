@@ -73,19 +73,23 @@ router.get("/moving-average/prediction", async (req, res) => {
     const data = countsOnly.map(({ count }) => count);
 
     const arima = new ARIMA({
-      p: 7,
+      p: 4,
       d: 1,
       q: 2,
       verbose: false
     }).train(data);
     
     // Predict next value
-    const [pred, errors] = arima.predict(3);
-    
-    console.log("ARIMA forecast:", pred);
+    const [pred, errors] = arima.predict(5);
+
+    const prediction = pred.map(value => Math.round(value));
+
+    console.log("ARIMA forecast:", prediction);
+
+    const combinedArray = [...data, ...prediction];
 
 
-    res.json(countsOnly)
+    res.json(combinedArray)
 
   } catch (error) {
     console.error(error);

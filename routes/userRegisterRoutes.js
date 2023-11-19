@@ -5,7 +5,7 @@ const Otp = require("../models/Otp");
 const twilio = require("twilio");
 
 const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
-const authToken = "13741706abd8887c13a7a155d7a3e1fd";
+const authToken = "5905c0b1a2bfc437e1054a6178dde1bd";
 const client = twilio(accountSid, authToken);
 
 const OTPMap = {};
