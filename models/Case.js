@@ -13,7 +13,7 @@ const Case = sequelize.define("CASES", {
   },
   time: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   district: {
     type: DataTypes.STRING,
