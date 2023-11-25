@@ -18,6 +18,7 @@ const deleteLive = require("./routes/deleteLive");
 const deleteAdvisory = require("./routes/advisoryDeleteRoutes");
 const movingAverage = require("./routes/movingAverageRoutes")
 const adminAddCases = require("./routes/adminAddCaseRoute")
+const adminReport = require("./routes/adminReportCase")
 const port = process.env.PORT;
 
 const app = express();
@@ -44,6 +45,7 @@ app.use("/api", movingAverage);
 
 app.use("/all", casesRoute);
 app.use("/api", adminAddCases);
+app.use("/api", adminReport)
 
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
