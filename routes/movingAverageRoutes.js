@@ -3,6 +3,7 @@ const router = express.Router();
 const { Op } = require("sequelize");
 const Case = require("../models/Case");
 const ARIMA = require('arima');
+const moment = require("moment");
 
 router.get("/moving-average", async (req, res) => {
   const year = req.query.year;
@@ -52,8 +53,18 @@ router.get("/moving-average", async (req, res) => {
 });
 
 router.get("/moving-average/prediction", async (req, res) => {
+
   try {
-    const casesPerYear = await Case.findAll();
+    const casesPerYear = await Case.findAll({
+      where: {
+        year: {
+          [Op.lte]: "2023",
+        },
+      },
+    });
+
+    console.log(casesPerYear)
+
     const totalCountsPerYear = {};
 
     // Loop through cases and increment total counts
@@ -76,25 +87,24 @@ router.get("/moving-average/prediction", async (req, res) => {
       p: 4,
       d: 1,
       q: 2,
-      verbose: false
+      verbose: false,
     }).train(data);
-    
+
     // Predict next value
     const [pred, errors] = arima.predict(5);
 
-    const prediction = pred.map(value => Math.round(value));
+    const prediction = pred.map((value) => Math.round(value));
 
     console.log("ARIMA forecast:", prediction);
 
     const combinedArray = [...data, ...prediction];
 
-
-    res.json(combinedArray)
-
+    res.json(combinedArray);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
   }
-})
+});
 
 module.exports = router;
+
