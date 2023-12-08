@@ -19,7 +19,7 @@ router.post("/message", async (req, res) => {
             if (values >= 15) {
                 const users = await User.findAll({
                     where: {
-                        district: district,
+                        district: `district ${district}`,
                         phone: { [Op.not]: null },
                     },
                 });

@@ -18,6 +18,8 @@ router.post("/advisory", async (req, res) => {
     alert,
   } = req.body;
 
+
+
   try {
     const CurrentDate = moment()
       .tz("Asia/Manila")
@@ -29,7 +31,8 @@ router.post("/advisory", async (req, res) => {
       .add(expirationSeconds, "seconds")
       .format("YYYY-MM-DD HH:mm:ss");
 
-    console.log(expirationDate);
+    // console.log(expirationDate);
+    console.log(alert)
 
     const newAdvisory = await Advisory.create({
       announcement,
