@@ -29,7 +29,7 @@ router.post("/register", (req, res) => {
         .create({
           body: `Your OTP for registration: ${otp}`,
           from: "+12295261907", // Twilio phone number
-          to: `+${phone}`, // User's phone number
+          to: `${phone}`, // User's phone number
         })
         .then((message) => {
           Otp.create({ code: otp, userId: user.email }) // Save OTP to the database
