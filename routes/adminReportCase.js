@@ -1,11 +1,10 @@
 const express = require("express");
 const { Op } = require("sequelize");
 const router = express.Router();
-const twilio = require("twilio");
 
 const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
 const authToken = "ad99134cc1fe5b761e3c709519a36ba9";
-const client = twilio(accountSid, authToken);
+const client = require("twilio")(accountSid, authToken);
 const { User } = require("../models/Users")
 
 router.post("/message", async (req, res) => {
