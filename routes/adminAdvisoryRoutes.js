@@ -3,7 +3,7 @@ const { Op, User } = require("../models/Users");
 const router = require("express").Router();
 
 const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
-const authToken = "ad99134cc1fe5b761e3c709519a36ba9";
+const authToken = "cba2b129be548bbdae3dfc6f0a5c9996";
 const client = require("twilio")(accountSid, authToken);
 const moment = require("moment-timezone");
 
@@ -50,7 +50,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: FIRE HAS BEEN NEUTRALIZED `,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -76,7 +76,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: DECREASING FIRE RISK `,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -102,7 +102,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: FIRE HAS AFFECTING MAJOR PART OF AREA `,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -127,7 +127,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: FIRE HAS AFFECTING SIGNIFICANT PART OF AREA - 35 FIRE TRUCKS `,
+            body: `A new announcement has posted "${announcement}".`,
             from: "+12295261907",
             to: phone,
           })
@@ -153,7 +153,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: FIRE HAS AFFECTING SIGNIFICANT PART OF AREA - 32 FIRE TRUCKS`,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -179,7 +179,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE:  15 X 15 Houses AFFECTED - 28 Fire Trucks`,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -206,7 +206,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: 12 X 12 Houses AFFECTED – 24 Fire Trucks`,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -233,7 +233,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: 10-11 Houses or High Rise Building AFFECTED - 20 Fire Trucks`,
+            body: `A new announcement has posted "${announcement}".`,
             from: "+12295261907",
             to: phone,
           })
@@ -260,7 +260,7 @@ router.post("/advisory", async (req, res) => {
       phone.forEach((phone) => {
         client.messages
           .create({
-            body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: 8-9 Houses or High Rise Building AFFECTED - 16 Fire Trucks `,
+            body: `A new announcement has posted "${announcement}". `,
             from: "+12295261907",
             to: phone,
           })
@@ -273,8 +273,8 @@ router.post("/advisory", async (req, res) => {
       });
     }
 
-    if (areas) {
-      for (const currentArea of areas) {
+    // if (areas) {
+    //   for (const currentArea of areas) {
 
         if (alert === "THIRD ALARM") {
           // FIND USERS THAT REGISTERED IN THE SYSTEM EXCEPT ADMIN
@@ -282,7 +282,7 @@ router.post("/advisory", async (req, res) => {
             where: {
               phone: { [Op.not]: null },
               district: district,
-              area: currentArea
+              area: areas
             },
           });
           const phone = users.map((user) => user.phone);
@@ -292,7 +292,7 @@ router.post("/advisory", async (req, res) => {
           phone.forEach((phone) => {
             client.messages
               .create({
-                body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: 6-7 Houses or High Rise Building - 12 Fire Trucks `,
+                body: `A new announcement has posted "${announcement}". `,
                 from: "+12295261907",
                 to: phone,
               })
@@ -309,7 +309,7 @@ router.post("/advisory", async (req, res) => {
             where: {
               phone: { [Op.not]: null },
               district: district,
-              area: currentArea
+              area: areas
             },
           });
           const phone = users.map((user) => user.phone);
@@ -319,7 +319,7 @@ router.post("/advisory", async (req, res) => {
           phone.forEach((phone) => {
             client.messages
               .create({
-                body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: 4-5 Houses - 8 Fire Trucks. `,
+                body: `A new announcement has posted "${announcement}". `,
                 from: "+12295261907",
                 to: phone,
               })
@@ -337,7 +337,7 @@ router.post("/advisory", async (req, res) => {
             where: {
               phone: { [Op.not]: null },
               district: district,
-              area: currentArea
+              area: areas
             },
           });
           const phone = users.map((user) => user.phone);
@@ -347,7 +347,7 @@ router.post("/advisory", async (req, res) => {
           phone.forEach((phone) => {
             client.messages
               .create({
-                body: `A new announcement has posted "${announcement}". PLEASE TAKE NOTE: 2-3 Houses - 4 Fire Trucks `,
+                body: `A new announcement has posted "${announcement}". `,
                 from: "+12295261907",
                 to: phone,
               })
@@ -359,8 +359,8 @@ router.post("/advisory", async (req, res) => {
               );
           });
         }
-      }
-    }
+      // }
+    // }
 
     
     res.status(201).json({ advisory: newAdvisory });

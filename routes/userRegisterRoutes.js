@@ -5,19 +5,20 @@ const Otp = require("../models/Otp");
 const twilio = require("twilio");
 
 const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
-const authToken = "ad99134cc1fe5b761e3c709519a36ba9";
+const authToken = "cba2b129be548bbdae3dfc6f0a5c9996";
 const client = twilio(accountSid, authToken);
 
 const OTPMap = {};
 
 router.post("/register", (req, res) => {
-  const { email, phone, name, district, password, user_type } = req.body;
+  const { email, phone, name, district, area, password, user_type } = req.body;
 
   User.create({
     email,
     phone,
     name,
     district,
+    area,
     password,
     user_type,
   })

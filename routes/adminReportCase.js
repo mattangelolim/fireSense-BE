@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const router = express.Router();
 
 const accountSid = "AC5e673e372afd9c9374b6e5c4ff0ac3f6";
-const authToken = "ad99134cc1fe5b761e3c709519a36ba9";
+const authToken = "cba2b129be548bbdae3dfc6f0a5c9996";
 const client = require("twilio")(accountSid, authToken);
 const { User } = require("../models/Users")
 
